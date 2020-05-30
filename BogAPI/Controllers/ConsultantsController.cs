@@ -63,10 +63,9 @@ namespace BogAPI.Controllers
 
 
         [HttpDelete("{id}")]
-        public ActionResult<int> Delete(int id) =>
-            ((IConsultantService)ConsultantService
-                       .ValidateDelete(id))
-                       .Delete(id);
+        public ActionResult<int> Delete(int id) => ((IConsultantService)ConsultantService
+                                                    .ValidateDelete(id))
+                                                    .Delete(id);
 
     }
 }
