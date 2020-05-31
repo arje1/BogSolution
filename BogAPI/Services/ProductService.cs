@@ -36,6 +36,7 @@ namespace BogAPI.Services
         public int Create()
         {
             Product product = this.ProductDto.ToProductEntity();
+            product.Id = 0;
             this.BogDBContext.Product.Add(product);
             this.BogDBContext.SaveChanges();
 
@@ -65,13 +66,13 @@ namespace BogAPI.Services
             return product.Id;
         }
 
-        public void Delete(int ProductId)
+        public int Delete(int ProductId)
         {
 
             Product product = BogDBContext.Product.FirstOrDefault(x => x.Id == ProductId);
             BogDBContext.Product.Remove(product);
 
-            BogDBContext.SaveChanges();
+            return BogDBContext.SaveChanges();
         }
 
 

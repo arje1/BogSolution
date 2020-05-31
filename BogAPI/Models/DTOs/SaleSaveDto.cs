@@ -6,15 +6,8 @@ using System.Threading.Tasks;
 
 namespace BogAPI.Models
 {
-    public class SaleCreateDto
+    public class SaleSaveDto
     {
-
-        //private BogDBContext BogDBContext;
-
-        //public SaleCreateDto(BogDBContext bogDBContext)
-        //{
-        //    this.BogDBContext = bogDBContext;
-        //}
 
         public int Id { get; set; }
         public string Code { get; set; }

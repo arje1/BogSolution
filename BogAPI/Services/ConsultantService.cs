@@ -30,6 +30,7 @@ namespace BogAPI.Services
         public int Create()
         {
             Consultant consultant = this.ConsultantDto.ToConsultantEntity();
+            consultant.Id = 0;
             this.BogDBContext.Consultant.Add(consultant);
             this.BogDBContext.SaveChanges();
 

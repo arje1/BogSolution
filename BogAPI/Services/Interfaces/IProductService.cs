@@ -11,6 +11,6 @@ namespace BogAPI.Services.Interfaces
         int Create();
         IEnumerable<ProductDto> Read(PageRequest pageRequest, out PageResponse pageResponse, string orderBy = "", ProductFilter productFilter = null);
         int Update();
-        void Delete(int ProductId);
+        int Delete(int ProductId);
     }
 }

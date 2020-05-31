@@ -10,10 +10,10 @@ namespace BogAPI.Services.Interfaces
 {
     public interface ISaleService : IValidateService
     {
-        ISaleService InitializeSale(SaleCreateDto saleDto);
+        ISaleService InitializeSale(SaleSaveDto saleDto);
         int Create();
         IEnumerable<SaleReadDto> Read(PageRequest pageRequest, out PageResponse pageResponse, string orderBy = "", SaleFilter saleFilter = null);
         int Update();
-        void Delete(int SaleId);
+        int Delete(int SaleId);
     }
 }

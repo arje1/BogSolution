@@ -35,24 +35,24 @@ namespace BogAPI.Controllers
 
 
         [HttpPost]
-        public ActionResult<string> Add([FromBody] SaleCreateDto saleDto)
-        {
-            var Result = ((ISaleService)SaleService.InitializeSale(saleDto)
-                        .ValidateCreation())
-                        .Create();
+        public ActionResult<int> Add([FromBody] SaleSaveDto saleDto) => ((ISaleService)SaleService.InitializeSale(saleDto)
+                                                                          .ValidateCreation())
+                                                                          .Create();
 
-            return Ok(Result);
-        }
+        [HttpPut]
+        public ActionResult<int> Update([FromBody] SaleSaveDto saleDto) => ((ISaleService)SaleService.InitializeSale(saleDto)
+                                                                           .ValidateUpdate())
+                                                                           .Update();
+
+
+
 
         [HttpDelete("{id}")]
-        public ActionResult<string> Delete(int id)
-        {
-            ((ISaleService)SaleService
-                .ValidateDelete(id))
-                .Delete(id);
+        public ActionResult<int> Delete(int id) => ((ISaleService)SaleService
+                                                    .ValidateDelete(id))
+                                                    .Delete(id);
 
-            return Ok();
-        }
+
 
 
     }

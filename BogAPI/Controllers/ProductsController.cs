@@ -27,7 +27,7 @@ namespace BogAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string> Get([FromQuery] ProductFilter productFilter = null,
+        public ActionResult<IEnumerable<ProductDto>> Get([FromQuery] ProductFilter productFilter = null,
             [FromQuery] string orderBy = null,
             [FromQuery] PageRequest pageRequest = null)
         {
@@ -39,32 +39,26 @@ namespace BogAPI.Controllers
 
 
         [HttpPost]
-        public ActionResult<string> Add([FromBody] ProductDto productDto)
-        {
-            var Result = ((IProductService)ProductService.InitializeProduct(productDto)
-                        .ValidateCreation())
-                        .Create();
+        public ActionResult<int> Add([FromBody] ProductDto productDto) =>
+                                ((IProductService)ProductService.InitializeProduct(productDto)
+                                .ValidateCreation())
+                                .Create();
 
-            return Ok(Result);
-        }
+
 
         [HttpPut]
-        public ActionResult<string> Update([FromBody] ProductDto productDto)
-        {
-            var Result = ((IProductService)ProductService.InitializeProduct(productDto)
-                       .ValidateUpdate())
-                       .Update();
+        public ActionResult<int> Update([FromBody] ProductDto productDto) =>
+                                ((IProductService)ProductService.InitializeProduct(productDto)
+                                .ValidateUpdate())
+                                .Update();
 
-            return Ok(Result);
-        }
+
 
         [HttpDelete("{id}")]
-        public ActionResult<string> Delete(int id)
-        {
-            ((IProductService)ProductService
-                       .ValidateDelete(id))
-                       .Delete(id);
-            return Ok();
-        }
+        public ActionResult<int> Delete(int id) =>
+                                ((IProductService)ProductService
+                                .ValidateDelete(id))
+                                .Delete(id);
+
     }
 }

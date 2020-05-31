@@ -26,7 +26,7 @@ namespace BogAPI.Controllers
 
 
         [HttpGet]
-        public ActionResult<string> Get([FromQuery] ConsultantFilter consultantFilter = null,
+        public ActionResult<IEnumerable<ConsultantDto>> Get([FromQuery] ConsultantFilter consultantFilter = null,
             [FromQuery] string orderBy = null,
             [FromQuery] PageRequest pageRequest = null)
         {
@@ -37,28 +37,19 @@ namespace BogAPI.Controllers
         }
 
         [HttpGet("{id}/subconsultants")]
-        public ActionResult<IEnumerable<ConsultantDto>> GetWithSubConsultants(int id)
-        {
-            var Result = ConsultantService.ReadWithSubConcultants(id).ToList();
-            return Result;
-        }
+        public ActionResult<IEnumerable<ConsultantDto>> GetWithSubConsultants(int id) => ConsultantService.ReadWithSubConcultants(id).ToList();
 
 
         [HttpPost]
-        public ActionResult<string> Add([FromBody] ConsultantDto consultantDto)
-        {
-            var Result = ((IConsultantService)ConsultantService.InitializeConsultant(consultantDto)
-                        .ValidateCreation())
-                        .Create();
+        public ActionResult<int> Add([FromBody] ConsultantDto consultantDto) => ((IConsultantService)ConsultantService.InitializeConsultant(consultantDto)
+                                                                                .ValidateCreation())
+                                                                                .Create();
 
-            return Ok(Result);
-        }
 
         [HttpPut]
-        public ActionResult<int> Update([FromBody] ConsultantDto consultantDto) =>
-             ((IConsultantService)ConsultantService.InitializeConsultant(consultantDto)
-                       .ValidateUpdate())
-                       .Update();
+        public ActionResult<int> Update([FromBody] ConsultantDto consultantDto) => ((IConsultantService)ConsultantService.InitializeConsultant(consultantDto)
+                                                                                    .ValidateUpdate())
+                                                                                    .Update();
 
 
 
