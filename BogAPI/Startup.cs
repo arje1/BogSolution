@@ -39,10 +39,10 @@ namespace BogAPI
 
             services.AddControllers();
 
-            services.AddTransient<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddTransient<IConsultantService, ConsultantService>();
-            services.AddTransient<ISaleService, SaleService>();
-            services.AddTransient<IAnalyticsService, AnalitycsService>();
+            services.AddScoped<ISaleService, SaleService>();
+            services.AddScoped<IAnalyticsService, AnalitycsService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,5 +1,6 @@
 ﻿using BogAPI.Extensions.SpExtensions;
 using BogAPI.Models;
+using BogAPI.Models.Paging;
 using BogAPI.Services.Interfaces;
 using BogEntity.Entities;
 using System;
@@ -20,11 +21,13 @@ namespace BogAPI.Services
         }
 
 
-        public IEnumerable<spGetSales_BasedOnConsultantsDto> GetSalesBasedOnConsultants(DateTime startDate, DateTime endDate)
+        public IEnumerable<spGetSales_BasedOnConsultantsDto> GetSalesBasedOnConsultants(DateTime startDate, DateTime endDate, PageRequest pageRequest, out PageResponse pageResponse)
         {
-            List<spGetSales_BasedOnConsultantsDto> Result =
-                            BogDBContext.GetSalesBasedOnConsultants(startDate, endDate).Select(x => x.ToSpGetSales_BasedOnConsultantsDto()).ToList();
 
+            List<spGetSales_BasedOnConsultantsDto> Result =
+                            BogDBContext.GetSalesBasedOnConsultants(startDate, endDate, pageRequest.PageNumber, pageRequest.PageSize, out int totalCount).Select(x => x.ToSpGetSales_BasedOnConsultantsDto()).ToList();
+
+            pageResponse = new PageResponse { CurrentPage = pageRequest.PageNumber, PageSize = pageRequest.PageSize, TotalCount = totalCount };
 
             return Result;
         }

@@ -4,14 +4,16 @@ using BogEntity.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BogEntity.Migrations
 {
     [DbContext(typeof(BogDBContext))]
-    partial class BogDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200531160603_Alter_SP_spGetSales_BasedOnConsultants")]
+    partial class Alter_SP_spGetSales_BasedOnConsultants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -93,7 +93,7 @@ namespace BogAPI.Services
                 throw new BogApiException(null, ErrorModel);
             }
 
-            if (this.ConsultantDto.RecommendatorId != null && !BogDBContext.Consultant.Any(x => x.Id == this.ConsultantDto.RecommendatorId.Value))
+            if (this.ConsultantDto.RecommendatorId != null && this.ConsultantDto.RecommendatorId != 0 && !BogDBContext.Consultant.Any(x => x.Id == this.ConsultantDto.RecommendatorId.Value))
             {
                 ErrorModel ErrorModel = new ErrorModel();
                 ErrorModel.Message = "Consultant with the provided recommendatorId doesn't exists.";
@@ -119,6 +119,7 @@ namespace BogAPI.Services
                 ErrorModel.Message = "Consultant Id is not valid.";
                 throw new BogApiException(null, ErrorModel);
             }
+
 
             if (!BogDBContext.Consultant.Any(x => x.Id == this.ConsultantDto.Id))
             {

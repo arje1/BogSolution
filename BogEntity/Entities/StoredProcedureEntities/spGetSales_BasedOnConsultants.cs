@@ -14,6 +14,7 @@ namespace BogEntity.Entities.StoredProcedureEntities
         public string ConsultantPrivateNumber { get; set; }
         public int ProductUnitSum { get; set; }
         public double ProductPriceSum { get; set; }
+        public int TotalNumber { get; set; }
 
     }
 }

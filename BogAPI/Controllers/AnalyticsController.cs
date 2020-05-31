@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BogAPI.Models;
+using BogAPI.Models.Paging;
 using BogAPI.Services.Interfaces;
+using BogEntity.Entities.StoredProcedureEntities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BogAPI.Controllers
 {
@@ -22,17 +26,19 @@ namespace BogAPI.Controllers
 
 
         [HttpGet("SalesBasedOnConsultants")]
-        public ActionResult<string> GetSalesBasedOnConsultants(
-            [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        public ActionResult<IEnumerable<spGetSales_BasedOnConsultantsDto>> GetSalesBasedOnConsultants(
+            [FromQuery] DateTime startDate, [FromQuery] DateTime endDate,
+            [FromQuery] PageRequest pageRequest = null)
         {
 
-            var Result = AnalyticsService.GetSalesBasedOnConsultants(startDate, endDate);
+            var Result = AnalyticsService.GetSalesBasedOnConsultants(startDate, endDate, pageRequest, out PageResponse pageResponse);
 
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pageResponse));
             return Ok(Result);
         }
 
         [HttpGet("SalesBasedOnProductPriceRanges")]
-        public ActionResult<string> GetSalesBasedOnProductPriceRanges(
+        public ActionResult<IEnumerable<spGetSales_BasedOnProductPriceRangeDto>> GetSalesBasedOnProductPriceRanges(
            [FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] double minimumPrice, [FromQuery] double maximumPrice)
         {
 
@@ -42,7 +48,7 @@ namespace BogAPI.Controllers
         }
 
         [HttpGet("SalesBasedOnFrequentProductsByConsultants")]
-        public ActionResult<string> GetSalesBasedOnFrequentProductsByConsultants(
+        public ActionResult<IEnumerable<spGetSales_BasedOnFrequentAndProfitableProductsByConsultantsDto>> GetSalesBasedOnFrequentProductsByConsultants(
           [FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int minimumUnit, [FromQuery] string productCode = "")
         {
 
@@ -52,7 +58,7 @@ namespace BogAPI.Controllers
         }
 
         [HttpGet("SalesBasedOnSalesSumByConsultants")]
-        public ActionResult<string> GetSalesBasedOnSalesSumByConsultants(
+        public ActionResult<IEnumerable<spGetSales_BasedOnSalesSumByConsultantsDto>> GetSalesBasedOnSalesSumByConsultants(
          [FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)
         {
             var Result = AnalyticsService.GetSales_BasedOnSalesSumByConsultants(startDate, endDate);

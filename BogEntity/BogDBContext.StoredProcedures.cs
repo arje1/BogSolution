@@ -9,17 +9,21 @@ namespace BogEntity.Entities
 {
     public partial class BogDBContext
     {
-        public List<spGetSales_BasedOnConsultants> GetSalesBasedOnConsultants(DateTime startDate, DateTime endDate)
+        public List<spGetSales_BasedOnConsultants> GetSalesBasedOnConsultants(DateTime startDate,
+                                                                              DateTime endDate,
+                                                                              int pageNumber,
+                                                                              int pageSize,
+                                                                              out int totalNumber)
         {
             List<spGetSales_BasedOnConsultants> SalesBasedOnConsultants;
 
 
-            string SqlQuery = "[Analytics].[spGetSales_BasedOnConsultants]  @StartDate = {0}, @EndDate = {1}";
+            string SqlQuery = @"[Analytics].[spGetSales_BasedOnConsultants]  @StartDate = {0}, @EndDate = {1}, @PageNumber = {2}, @PageSize = {3}";
 
             SalesBasedOnConsultants = this.Set<spGetSales_BasedOnConsultants>()
-                                        .FromSqlRaw<spGetSales_BasedOnConsultants>(SqlQuery, startDate, endDate).ToList();
+                                        .FromSqlRaw<spGetSales_BasedOnConsultants>(SqlQuery, startDate, endDate, pageNumber, pageSize).ToList();
 
-
+            totalNumber = SalesBasedOnConsultants.First() == null ? 0 : SalesBasedOnConsultants.First().TotalNumber;
             return SalesBasedOnConsultants;
         }
 

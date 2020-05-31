@@ -43,8 +43,6 @@ namespace BogAPI.Extensions
                 PageSize = pageRequest.PageSize,
                 TotalCount = source.Count()
             };
-            pageResponse.TotalPages = (int)Math.Ceiling(pageResponse.TotalCount / (double)pageRequest.PageSize);
-
 
             return ResultQuerable;
         }

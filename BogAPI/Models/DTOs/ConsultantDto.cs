@@ -15,7 +15,7 @@ namespace BogAPI.Models
         public string PrivateNumber { get; set; }
         public int GenderId { get; set; }
         public DateTime BirthDate { get; set; }
-        public int? RecommendatorId { get; set; }
+        public int? RecommendatorId { get; set; } = null;
 
         #region DTO helper methods
         public Consultant ToConsultantEntity()
@@ -31,6 +31,11 @@ namespace BogAPI.Models
                 BirthDate = this.BirthDate,
                 RecommendatorId = this.RecommendatorId
             };
+
+            if (consultant.RecommendatorId == 0)
+            {
+                consultant.RecommendatorId = null;
+            }
 
             return consultant;
         }

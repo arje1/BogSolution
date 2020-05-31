@@ -13,7 +13,7 @@ namespace BogEntity.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            string SqlScript = @"CREATE SCHEMA [Analytics]";
+            string SqlScript = @"DROP SCHEMA [Analytics]";
 
             migrationBuilder.Sql(SqlScript);
         }
